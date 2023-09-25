@@ -1,6 +1,9 @@
 # IoT Catalogue Data API
 
-Provides support to send data to IoT Catalogue through the browser or a NodeJS application by making use of an authenticated DDP instance.
+Plugin developed by [UNPARALLEL Innovation](https://www.unparallel.pt/) enabling support to send data to [IoT Catalogue](https://www.iot-catalogue.com) through the browser or a NodeJS application by making use of an authenticated DDP instance.
+
+<img style="margin-right:10px" src="https://iot-catalogue.s3.amazonaws.com/internalImages/r4R9H6Gc535eEqTnp/logo.png" height="50px"/>
+<img src="https://www.unparallel.pt/assets/UILogo_black_RGB.png" height="50px"/>
 
 # Installation
 
