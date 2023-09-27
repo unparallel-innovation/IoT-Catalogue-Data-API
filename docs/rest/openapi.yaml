@@ -1,16 +1,17 @@
 openapi: 3.0.0
 servers:
-  - url: https://www.iot-catalogue.com
+  - url: 'https://www.iot-catalogue.com'
 info:
   description: Rest API used to send and retrieve data from IoT Catalogue
   version: 1.0.0
   title: IoT Catalogue Data API
-  termsOfService: http://swagger.io/terms/
+  termsOfService: ''
   contact:
     email: info@iot-catalogue.com
   license:
-    name: Apache 2.0
-    url: https://github.com/unparallel-innovation/IoT-Catalogue-Data-API/blob/main/LICENSE
+    name: MIT
+    url: >-
+      https://github.com/unparallel-innovation/IoT-Catalogue-Data-API/blob/main/LICENSE
 tags:
   - name: Component
     description: Component data endpoint
@@ -31,7 +32,7 @@ tags:
   - name: Search
     description: Search endpoint
 paths:
-  /api/data/component/{id}:
+  '/api/data/component/{id}':
     get:
       summary: Retrieve a component with a given id
       description: ''
@@ -114,7 +115,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Component'
         description: Body containing information about the new component
-  /api/data/dataConcept/{id}:
+  '/api/data/dataConcept/{id}':
     get:
       summary: Retrieve a data concept with a given id
       description: ''
@@ -197,7 +198,7 @@ paths:
             schema:
               $ref: '#/components/schemas/DataConcept'
         description: Body containing information about the new data concept
-  /api/data/unit/{id}:
+  '/api/data/unit/{id}':
     get:
       summary: Retrieve a unit with a given id
       description: ''
@@ -280,7 +281,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Unit'
         description: Body containing information about the new unit
-  /api/data/measurableQuantity/{id}:
+  '/api/data/measurableQuantity/{id}':
     get:
       summary: Retrieve a measurable quantity with a given id
       description: ''
@@ -363,7 +364,7 @@ paths:
             schema:
               $ref: '#/components/schemas/MeasurableQuantity'
         description: Body containing information about the new measurable quantity
-  /api/data/initiative/{id}:
+  '/api/data/initiative/{id}':
     get:
       summary: Retrieve a initiative with a given id
       description: ''
@@ -446,7 +447,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Initiative'
         description: Body containing information about the new Initiative
-  /api/data/dataModel/{id}:
+  '/api/data/dataModel/{id}':
     get:
       summary: Retrieve a data model with a given id
       description: ''
@@ -529,7 +530,7 @@ paths:
             schema:
               $ref: '#/components/schemas/DataModel'
         description: Body containing information about the new data model
-  /api/data/dataMeasurement/{id}:
+  '/api/data/dataMeasurement/{id}':
     get:
       summary: Retrieve a data measurements with a given id
       description: ''
@@ -612,7 +613,7 @@ paths:
             schema:
               $ref: '#/components/schemas/DataMeasurement'
         description: Body containing information about the new data measurement
-  /api/data/dataSet/{id}:
+  '/api/data/dataSet/{id}':
     get:
       summary: Retrieve a data set with a given id
       description: ''
@@ -696,31 +697,17 @@ paths:
               $ref: '#/components/schemas/DataSet'
         description: Body containing information about the new data set
   /api/data/search:
-    get:
-      summary: ''
-      description: ''
-      parameters:
-        - name: term
-          in: query
-          required: true
-          schema:
-            type: string
-          description: |-
-            String with the search terms
-            * Ids of the data elements
-            * Name or title of elements
-        - name: types
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Data types of the elements returned by the search query, separated by comma
-        - name: includeNames
-          in: query
-          required: false
-          schema:
-            type: boolean
-          description: Inlude names of data elements on search results
+    post:
+      summary: Search for data elements on IoT Catalogue
+      description: >-
+        This endpoint supports search both from free text and data element ids,
+        returning results related with the search parameters
+
+
+        Search with both ids and free text is supported, enabling the
+        possibility to do a filtered search (for ex: searching a specific domain
+        for a specific research project)
+      parameters: []
       operationId: searchItems
       responses:
         default:
@@ -731,9 +718,15 @@ paths:
                 $ref: '#/components/schemas/SearchResults'
       tags:
         - Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
 externalDocs:
   description: See AsyncAPI example
-  url: https://mermade.github.io/shins/asyncapi.html
+  url: 'https://github.com/unparallel-innovation/IoT-Catalogue-Data-AP'
 components:
   schemas:
     Component:
@@ -749,12 +742,21 @@ components:
           description: Short summary of the Component (with a maximum of 280 char).
         type:
           type: string
-          description: 'Indicate the type of the Component type. E.g., Component: Platform, Sensor, Gateway, Dataset, Machine Learning Model, Library, Extension, As a Service or Other Software.'
+          description: >-
+            Indicate the type of the Component type. E.g., Component: Platform,
+            Sensor, Gateway, Dataset, Machine Learning Model, Library,
+            Extension, As a Service or Other Software.
         license:
           type: string
-          description: Type of use / distribution (e.g., Open-source, closed-source, Internal, etc.). If Open-source, then state Open-source license (guide for open-source license )
+          description: >-
+            Type of use / distribution (e.g., Open-source, closed-source,
+            Internal, etc.). If Open-source, then state Open-source license
+            (guide for open-source license )
         trl:
-          description: If the component is in development, select the Technology Readiness Level (TRL) target of the Component according to the European Commission.
+          description: >-
+            If the component is in development, select the Technology Readiness
+            Level (TRL) target of the Component according to the European
+            Commission.
           type: number
         tags:
           description: Component tags
@@ -762,7 +764,10 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
         reference:
-          description: Provide useful documentation and repository of the component, such as instructions manuals, datasheets, publications related to the component, GitHub repository, training material, and so on.
+          description: >-
+            Provide useful documentation and repository of the component, such
+            as instructions manuals, datasheets, publications related to the
+            component, GitHub repository, training material, and so on.
           type: array
           items:
             $ref: '#/components/schemas/Reference'
@@ -789,7 +794,9 @@ components:
           description: The website of the Component
           type: string
         schemaId:
-          description: Unique id of the component, this value can be used to allow update components
+          description: >-
+            Unique id of the component, this value can be used to allow update
+            components
           type: string
         notes:
           description: Additional info of the component
@@ -797,11 +804,13 @@ components:
           items:
             $ref: '#/components/schemas/Note'
         status:
-          description: Status of the component (Final, Draft)
+          description: 'Status of the component (Final, Draft)'
           type: string
         linkedCcomponents:
           type: array
-          description: List the components and their relationship (e.g., uses, based on, composed by)
+          description: >-
+            List the components and their relationship (e.g., uses, based on,
+            composed by)
           items:
             $ref: '#/components/schemas/LinkedComponent'
       type: object
@@ -1049,26 +1058,6 @@ components:
           description: Component schema ids part of the relation
           items:
             type: string
-    SearchResults:
-      type: object
-      properties:
-        numberOfResults:
-          type: number
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchResult'
-    SearchResult:
-      type: object
-      properties:
-        weight:
-          type: number
-        type:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
     Metadata:
       type: object
     Coordinate:
@@ -1174,16 +1163,76 @@ components:
       description: URL of the main image (format JPG or PNG) of the data element.
       type: string
     MediaGallery:
-      description: URL with images (format JPG or PNG) for media gallery of the data element.
+      description: >-
+        URL with images (format JPG or PNG) for media gallery of the data
+        element.
       type: array
       items:
         type: string
+    SearchRequest:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchRequestValue'
+        expand:
+          description: >-
+            If the output should contain the data objects, if this options os
+            not checked only the ids will be returned
+          type: boolean
+        getRelated:
+          description: >-
+            If the output should contain related objects, if this options os not
+            checked only elements direct to the search query will be returned
+          type: boolean
+    SearchRequestValue:
+      type: object
+      properties:
+        term:
+          description: Used when for free text searches
+          type: string
+        id:
+          type: object
+          description: 'Used for id searches, this can be used with the "term" property'
+          properties:
+            value:
+              type: string
+            type:
+              type: string
+    SearchResults:
+      type: object
+      properties:
+        numberOfResults:
+          description: Total number of results returned by the search query
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+    SearchResult:
+      type: object
+      properties:
+        weight:
+          description: '"Weight" of the result higher values means a better match'
+          type: number
+        type:
+          description: 'Type of data for ex: "component", "validation" etc'
+          type: string
+        id:
+          description: Id of the data element
+          type: string
+        dataElement:
+          description: >-
+            Contains the data object, this property is only available when
+            "expand" is selected on the search query
+          type: object
   securitySchemes:
-    accessTtoken:
+    accessToken:
       type: apiKey
       name: access_token
       in: query
   links: {}
   callbacks: {}
 security:
-  - accessTtoken: []
+  - accessToken: []
