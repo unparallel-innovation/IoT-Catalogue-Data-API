@@ -1,0 +1,1189 @@
+openapi: 3.0.0
+servers:
+  - url: https://www.iot-catalogue.com
+info:
+  description: Rest API used to send and retrieve data from IoT Catalogue
+  version: 1.0.0
+  title: IoT Catalogue Data API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: info@iot-catalogue.com
+  license:
+    name: Apache 2.0
+    url: https://github.com/unparallel-innovation/IoT-Catalogue-Data-API/blob/main/LICENSE
+tags:
+  - name: Component
+    description: Component data endpoint
+  - name: Data Concept
+    description: Data concept data endpoint
+  - name: Unit
+    description: Unit data endpoint
+  - name: Measurable Quantity
+    description: Measurable quantity data endpoint
+  - name: Initiative
+    description: Initiative data endpoint
+  - name: Data Measurement
+    description: Data Measurement data endpoint
+  - name: Data Model
+    description: Data Model data endpoint
+  - name: Data Set
+    description: Data Set data endpoint
+  - name: Search
+    description: Search endpoint
+paths:
+  /api/data/component/{id}:
+    get:
+      summary: Retrieve a component with a given id
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data element
+      operationId: getComponent
+      responses:
+        '200':
+          description: Component found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+        '401':
+          description: Unauthorized component
+        '404':
+          description: Component not found
+        '500':
+          description: Internal server error
+      tags:
+        - Component
+    delete:
+      summary: Delete an existing component
+      description: Is necessary to be owner of the component to perform this action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data element
+      operationId: deleteComponent
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Component
+    put:
+      summary: Edit an existing component
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the component to edit
+      operationId: editComponent
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Component
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Component'
+  /api/data/component:
+    post:
+      summary: Add new component
+      description: ''
+      parameters: []
+      operationId: addNewComponent
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Component
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Component'
+        description: Body containing information about the new component
+  /api/data/dataConcept/{id}:
+    get:
+      summary: Retrieve a data concept with a given id
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data element
+      operationId: getDataConcept
+      responses:
+        '200':
+          description: Data concept found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataConcept'
+        '401':
+          description: Unauthorized data concept
+        '404':
+          description: Data concept not found
+        '500':
+          description: Internal server error
+      tags:
+        - Data Concept
+    put:
+      summary: Edit an existing data concept
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data concept to edit
+      operationId: editDataConcept
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Concept
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataConcept'
+    delete:
+      summary: Delete an existing data concept
+      description: Is necessary to be owner of the data concept to perform action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data element
+      operationId: deleteDataConcept
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Concept
+  /api/data/dataConcept:
+    post:
+      summary: Add new data concept
+      description: ''
+      parameters: []
+      operationId: addNewDataConcept
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Concept
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataConcept'
+        description: Body containing information about the new data concept
+  /api/data/unit/{id}:
+    get:
+      summary: Retrieve a unit with a given id
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data element
+      operationId: getUnit
+      responses:
+        '200':
+          description: Unit found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unit'
+        '401':
+          description: Unauthorized unit
+        '404':
+          description: Unit not found
+        '500':
+          description: Internal server error
+      tags:
+        - Unit
+    put:
+      summary: Edit an existing unit
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the unit to edit
+      operationId: editUnit
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Unit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Unit'
+    delete:
+      summary: Delete an existing Unit
+      description: Is necessary to be owner of the unit to perform action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the unit
+      operationId: deleteUnit
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Unit
+  /api/data/unit:
+    post:
+      summary: Add new unit
+      description: ''
+      parameters: []
+      operationId: addNewUnit
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Unit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Unit'
+        description: Body containing information about the new unit
+  /api/data/measurableQuantity/{id}:
+    get:
+      summary: Retrieve a measurable quantity with a given id
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data element
+      operationId: getMeasurableQuantity
+      responses:
+        '200':
+          description: Measurable quantity found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurableQuantity'
+        '401':
+          description: 'Unauthorized measurable quantity '
+        '404':
+          description: Measurable quantity  not found
+        '500':
+          description: Internal server error
+      tags:
+        - Measurable Quantity
+    put:
+      summary: Edit an existing measurable quantity
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the  measurable quantity to edit
+      operationId: editMeasurableQuantity
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Measurable Quantity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurableQuantity'
+    delete:
+      summary: Delete an existing Measurable Quantity
+      description: Is necessary to be owner of the measurable quantity to perform action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the measurable quantity
+      operationId: deleteMeasurableQuantity
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Measurable Quantity
+  /api/data/measurableQuantity:
+    post:
+      summary: Add new measurable quantity
+      description: ''
+      parameters: []
+      operationId: addNewMeasurableQuantity
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Measurable Quantity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurableQuantity'
+        description: Body containing information about the new measurable quantity
+  /api/data/initiative/{id}:
+    get:
+      summary: Retrieve a initiative with a given id
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data element
+      operationId: getInitiative
+      responses:
+        '200':
+          description: Initiative found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Initiative'
+        '401':
+          description: Unauthorized initiative
+        '404':
+          description: Unit not found
+        '500':
+          description: Internal server error
+      tags:
+        - Initiative
+    put:
+      summary: Edit an existing initiative
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the initiative to edit
+      operationId: editInitiative
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Initiative
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Initiative'
+    delete:
+      summary: Delete an existing Initiative
+      description: Is necessary to be owner of the unit to perform action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the initiative
+      operationId: deleteInitiative
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Initiative
+  /api/data/initiative:
+    post:
+      summary: Add new initiative
+      description: ''
+      parameters: []
+      operationId: addNewInitiative
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Initiative
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Initiative'
+        description: Body containing information about the new Initiative
+  /api/data/dataModel/{id}:
+    get:
+      summary: Retrieve a data model with a given id
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data element
+      operationId: getDataModel
+      responses:
+        '200':
+          description: Data model found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataModel'
+        '401':
+          description: Unauthorized data model
+        '404':
+          description: Data model not found
+        '500':
+          description: Internal server error
+      tags:
+        - Data Model
+    put:
+      summary: Edit an existing data model
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data model to edit
+      operationId: editDataModel
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Model
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataModel'
+    delete:
+      summary: Delete an existing data model
+      description: Is necessary to be owner of the data concept to perform action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data model
+      operationId: deleteDataModel
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Model
+  /api/data/dataModel:
+    post:
+      summary: Add new data model
+      description: ''
+      parameters: []
+      operationId: addNewDataModel
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Model
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataModel'
+        description: Body containing information about the new data model
+  /api/data/dataMeasurement/{id}:
+    get:
+      summary: Retrieve a data measurements with a given id
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data measurement
+      operationId: getDataMeasurement
+      responses:
+        '200':
+          description: Data measurement found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataMeasurement'
+        '401':
+          description: Unauthorized data measurement
+        '404':
+          description: Data measurement not found
+        '500':
+          description: Internal server error
+      tags:
+        - Data Measurement
+    put:
+      summary: Edit an existing data measurement
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data measurement to edit
+      operationId: editDataMeasurement
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Measurement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataMeasurement'
+    delete:
+      summary: Delete an existing data measurement
+      description: Is necessary to be owner of the data concept to perform action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data measurement
+      operationId: deleteDataMeasurement
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Measurement
+  /api/data/dataMeasurement:
+    post:
+      summary: Add new data measurement
+      description: ''
+      parameters: []
+      operationId: addNewDataMeasurement
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Measurement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataMeasurement'
+        description: Body containing information about the new data measurement
+  /api/data/dataSet/{id}:
+    get:
+      summary: Retrieve a data set with a given id
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data set
+      operationId: getDataSet
+      responses:
+        '200':
+          description: Data set found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSet'
+        '401':
+          description: Unauthorized data set
+        '404':
+          description: Data set not found
+        '500':
+          description: Internal server error
+      tags:
+        - Data Set
+    put:
+      summary: Edit an existing data set
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data set to edit
+      operationId: editDataSet
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Set
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSet'
+    delete:
+      summary: Delete an existing data set
+      description: Is necessary to be owner of the data concept to perform action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of the data set
+      operationId: deleteDataSet
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Set
+  /api/data/dataSet:
+    post:
+      summary: Add new data set
+      description: ''
+      parameters: []
+      operationId: addNewDataSet
+      responses:
+        default:
+          description: Default response
+      tags:
+        - Data Set
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSet'
+        description: Body containing information about the new data set
+  /api/data/search:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        - name: term
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |-
+            String with the search terms
+            * Ids of the data elements
+            * Name or title of elements
+        - name: types
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Data types of the elements returned by the search query, separated by comma
+        - name: includeNames
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Inlude names of data elements on search results
+      operationId: searchItems
+      responses:
+        default:
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+      tags:
+        - Search
+externalDocs:
+  description: See AsyncAPI example
+  url: https://mermade.github.io/shins/asyncapi.html
+components:
+  schemas:
+    Component:
+      properties:
+        name:
+          type: string
+          description: Name of the component
+        description:
+          type: string
+          description: Extended description of the Component
+        summary:
+          type: string
+          description: Short summary of the Component (with a maximum of 280 char).
+        type:
+          type: string
+          description: 'Indicate the type of the Component type. E.g., Component: Platform, Sensor, Gateway, Dataset, Machine Learning Model, Library, Extension, As a Service or Other Software.'
+        license:
+          type: string
+          description: Type of use / distribution (e.g., Open-source, closed-source, Internal, etc.). If Open-source, then state Open-source license (guide for open-source license )
+        trl:
+          description: If the component is in development, select the Technology Readiness Level (TRL) target of the Component according to the European Commission.
+          type: number
+        tags:
+          description: Component tags
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        reference:
+          description: Provide useful documentation and repository of the component, such as instructions manuals, datasheets, publications related to the component, GitHub repository, training material, and so on.
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
+        developers:
+          description: Component’s developer entity.
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity'
+        manufacturers:
+          description: Component’s manufacturer entity.
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity'
+        standards:
+          description: List of Standards supported by the Component.
+          type: array
+          items:
+            $ref: '#/components/schemas/Standard'
+        logo:
+          $ref: '#/components/schemas/Logo'
+        mediaGallery:
+          $ref: '#/components/schemas/MediaGallery'
+        website:
+          description: The website of the Component
+          type: string
+        schemaId:
+          description: Unique id of the component, this value can be used to allow update components
+          type: string
+        notes:
+          description: Additional info of the component
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        status:
+          description: Status of the component (Final, Draft)
+          type: string
+        linkedCcomponents:
+          type: array
+          description: List the components and their relationship (e.g., uses, based on, composed by)
+          items:
+            $ref: '#/components/schemas/LinkedComponent'
+      type: object
+    DataConcept:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        dataSetMeasurableQuantities:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSetMeasurableQuantity'
+        logo:
+          $ref: '#/components/schemas/Logo'
+        mediaGallery:
+          $ref: '#/components/schemas/MediaGallery'
+        schemaId:
+          type: string
+        isParentOf:
+          type: array
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentationReference'
+    Unit:
+      type: object
+      properties:
+        name:
+          type: string
+        symbol:
+          type: string
+        status:
+          type: array
+          items:
+            type: string
+        schemaId:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentationReference'
+    MeasurableQuantity:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        unitIds:
+          type: array
+          items:
+            type: string
+        schemaId:
+          type: string
+        isParentOf:
+          type: array
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentationReference'
+    Initiative:
+      type: object
+      properties:
+        name:
+          type: string
+        schemaId:
+          type: string
+        description:
+          type: string
+        summary:
+          type: string
+        shortName:
+          type: string
+        website:
+          type: string
+        moreInfo:
+          type: object
+          properties:
+            title:
+              type: string
+            url:
+              type: string
+        isParentOf:
+          type: array
+          items:
+            type: string
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentationReference'
+        githubRepository:
+          type: string
+    DataModel:
+      type: object
+      properties:
+        schemaId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        isParentOf:
+          type: array
+          items:
+            type: string
+        website:
+          type: string
+        githubRepository:
+          type: string
+        metadata:
+          type: string
+        references:
+          $ref: '#/components/schemas/DocumentationReference'
+    DataMeasurement:
+      properties:
+        values:
+          type: object
+          properties:
+            measurableQuantityId:
+              type: string
+            unitId:
+              type: string
+            value:
+              type: number
+        schemaId:
+          type: string
+        dataSetId:
+          type: string
+    DataSet:
+      type: object
+      properties:
+        name:
+          type: string
+        dataSetMeasurableQuantities:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSetMeasurableQuantity'
+        componentId:
+          type: string
+        dataConceptIds:
+          type: array
+          items:
+            type: string
+        timeline:
+          type: object
+        location:
+          type: object
+        dataSource:
+          type: object
+        schemaId:
+          type: string
+        coordinates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coordinate'
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentationReference'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/OSMElement'
+    Tag:
+      properties:
+        type:
+          description: Name of the tag
+          type: string
+        name:
+          description: Type of the tag
+          type: string
+      type: object
+    Reference:
+      type: object
+      properties:
+        documentation:
+          description: External documentation
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentationReference'
+        repositories:
+          type: array
+          items:
+            description: GitHub or GitLab repositories urls
+            type: string
+    DocumentationReference:
+      properties:
+        url:
+          description: External website of the documentation
+          type: string
+        title:
+          description: Name of the documentation entry
+          type: string
+        description:
+          description: Small description of the documentation entry
+          type: string
+      type: object
+    Entity:
+      properties:
+        name:
+          description: Name of the entity
+          type: string
+        website:
+          description: Website of the entity
+          type: string
+      type: object
+    Standard:
+      properties:
+        name:
+          description: Name of the entity
+          type: string
+        developedBy:
+          description: Website of the entity
+          $ref: '#/components/schemas/Entity'
+      type: object
+    Note:
+      properties:
+        title:
+          description: Title of the note entry
+          type: string
+        text:
+          description: Content of the note
+          type: string
+      type: object
+    LinkedComponent:
+      type: object
+      properties:
+        relationType:
+          description: 'Describes the relation type ex: Used On'
+          type: string
+        schemaIds:
+          type: array
+          description: Component schema ids part of the relation
+          items:
+            type: string
+    SearchResults:
+      type: object
+      properties:
+        numberOfResults:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+    SearchResult:
+      type: object
+      properties:
+        weight:
+          type: number
+        type:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+    Metadata:
+      type: object
+    Coordinate:
+      type: object
+      properties:
+        lat:
+          type: number
+        lon:
+          type: number
+    OSMElementAddress:
+      type: object
+      properties:
+        road:
+          type: string
+        neighbourhood:
+          type: string
+        suburb:
+          type: string
+        city_district:
+          type: string
+        city:
+          type: string
+        ISO3166-2-lvl6:
+          type: string
+        postcode:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        house_number:
+          type: string
+        state:
+          type: string
+        place:
+          type: string
+        boundary:
+          type: string
+        natural:
+          type: string
+        island:
+          type: string
+        archipelago:
+          type: string
+        beach:
+          type: string
+        county:
+          type: string
+    OSMElement:
+      type: object
+      properties:
+        place_id:
+          type: string
+        licence:
+          type: string
+        osm_type:
+          type: string
+        osm_id:
+          type: string
+        boundingbox:
+          type: array
+          items:
+            type: number
+        lat:
+          type: string
+        lon:
+          type: string
+        display_name:
+          type: string
+        class:
+          type: string
+        type:
+          type: string
+        importance:
+          type: string
+        address:
+          type: string
+        extratags:
+          type: string
+        geojson:
+          type: object
+        geo_ids:
+          type: string
+    DataSetMeasurableQuantity:
+      type: object
+      properties:
+        measurableQuantityId:
+          type: string
+        unitId:
+          type: string
+    DataSetLastMeasurement:
+      type: object
+      properties:
+        measurableQuantityId:
+          type: string
+        unitId:
+          type: string
+        date:
+          type: number
+        value:
+          type: number
+    Logo:
+      description: URL of the main image (format JPG or PNG) of the data element.
+      type: string
+    MediaGallery:
+      description: URL with images (format JPG or PNG) for media gallery of the data element.
+      type: array
+      items:
+        type: string
+  securitySchemes:
+    accessTtoken:
+      type: apiKey
+      name: access_token
+      in: query
+  links: {}
+  callbacks: {}
+security:
+  - accessTtoken: []
